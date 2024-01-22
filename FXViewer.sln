@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34511.84
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FXViewer.Background", "FXViewer.Background\FXViewer.Background.csproj", "{72C7FDBD-A13A-4EAD-82DB-429FD72E2065}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FXViewer.Background", "FXViewer.Background\FXViewer.Background.csproj", "{72C7FDBD-A13A-4EAD-82DB-429FD72E2065}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FXViewer.Services", "FXViewer.Services\FXViewer.Services.csproj", "{53FC979D-19D3-469D-93C8-8E2C3BED54B5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FXViewer.Services", "FXViewer.Services\FXViewer.Services.csproj", "{53FC979D-19D3-469D-93C8-8E2C3BED54B5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FXViewer.Domain", "FXViewer.Domain\FXViewer.Domain.csproj", "{D7022D78-E057-4D71-AA3C-D0DAAF5A950A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FXViewer.Domain", "FXViewer.Domain\FXViewer.Domain.csproj", "{D7022D78-E057-4D71-AA3C-D0DAAF5A950A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

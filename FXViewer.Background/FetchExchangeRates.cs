@@ -1,32 +1,28 @@
 using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.Azure.WebJobs;
-using Microsoft.Azure.WebJobs.Host;
-using Microsoft.Extensions.Logging;
 using HtmlAgilityPack;
-using Microsoft.Azure.Documents;
 using Microsoft.Azure.Documents.Client;
 using Microsoft.Azure.Functions.Worker;
 using Microsoft.Extensions.Configuration;
-
+using Microsoft.Extensions.Logging;
 
 namespace FXViewer.Background
 {
-    public class FetchExchangeRate
+    public class FetchExchangeRates
     {
+        private readonly ILogger _logger;
         private static HttpClient client = new HttpClient();
         private readonly IConfiguration _configuration;
 
-        public FetchExchangeRate(IConfiguration configuration)
+        public FetchExchangeRates(ILoggerFactory loggerFactory, IConfiguration configuration)
         {
+            _logger = loggerFactory.CreateLogger<FetchExchangeRates>();
             _configuration = configuration;
         }
 
-        [FunctionName("FetchExchangeRate")]
-        public async Task Run([TimerTrigger("%TimerSchedule%")] TimerInfo myTimer, ILogger log)
+        [Function("FetchExchangeRates")]
+        public async Task Run([TimerTrigger("%TimerSchedule%")] TimerInfo myTimer)
         {
-            log.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
+            _logger.LogInformation($"C# Timer trigger function executed at: {DateTime.Now}");
 
             var response = await client.GetAsync(_configuration["APIURL"]);
 
@@ -55,13 +51,17 @@ namespace FXViewer.Background
                     await documentClient.CreateDocumentAsync(UriFactory.CreateDocumentCollectionUri(dbName, collectionName), document);
                 }
 
-                log.LogInformation($"Saved Euro exchange rate: {euroRate}");
+                _logger.LogInformation($"Saved Euro exchange rate: {euroRate}");
             }
             else
             {
-                log.LogError($"Failed to fetch exchange rate: {response.StatusCode}");
+                _logger.LogError($"Failed to fetch exchange rate: {response.StatusCode}");
+            }
+
+            if (myTimer.ScheduleStatus is not null)
+            {
+                _logger.LogInformation($"Next timer schedule at: {myTimer.ScheduleStatus.Next}");
             }
         }
     }
 }
-
